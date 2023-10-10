@@ -17,6 +17,7 @@ private:
 	std::stack<double> numbers;
 	std::stack<Operation*> cur_operations;
 	std::vector<Operation*> operations;
+	std::vector<HINSTANCE> dlls;
 	std::string expression;
 
 public:
@@ -24,8 +25,11 @@ public:
 	~Calculator();
 
 	void base_operations();
+	void load_dll();
+	void import_functions(HMODULE dll);
 	std::string solve();
 	void put_expression();
+	void delete_spaces();
 	std::string check_expression() { return this->expression; }
 	void math();
 };
