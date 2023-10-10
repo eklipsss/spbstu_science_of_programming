@@ -28,8 +28,12 @@ public:
 	void load_dll();
 	void import_functions(HMODULE dll);
 	std::string solve();
+	void math();
+	bool match(int i, Operation* oper);
+	bool is_number(char c);
+	void clear_stacks();
+	void print_functions();
 	void put_expression();
 	void delete_spaces();
 	std::string check_expression() { return this->expression; }
-	void math();
 };
