@@ -172,10 +172,10 @@ std::string Calculator::solve()
 	std::string buf;
 	for (int i = 0; i < expression.size(); i++) {
 		c = expression[i];
-		if (is_number(c) || c == '-' && i == 0) { //число
+		if (is_number(c) || c == '-' && ( i == 0 || i!=0 && expression[i-1] == '(')) { //число
 			int j = i;
 			bool point = false;
-			while (is_number(c) || c == '-' && j == 0 || c == '.') {
+			while (is_number(c) || c == '-' && (j == 0 || j != 0 && expression[j - 1] == '(') || c == '.') {
 				if (c == '.') {
 					if (point) throw std::exception("Error: A number can't have two separators (dots)\n");
 					point = true;
@@ -199,12 +199,12 @@ std::string Calculator::solve()
 					i += oper->get_type().size() - 1;
 
 					if ((cur_operations.empty() || oper->get_type() == "(") && oper->get_type() != ")") cur_operations.push(oper);
-					else if (oper->get_type() == ")") math();
+					else if (oper->get_type() == ")") if (!math()) throw std::exception("Error: The expression was entered incorrectly\n");
 					else {
 						if (oper->get_priority() > cur_operations.top()->get_priority() || cur_operations.top()->get_type() == "(") 
 							cur_operations.push(oper);
 						else {
-							math();
+							if (!math()) throw std::exception("Error: The expression was entered incorrectly\n");
 							cur_operations.push(oper);
 						}
 					}
@@ -218,7 +218,7 @@ std::string Calculator::solve()
 		}
 
 	}
-	math();
+	if (!math()) throw std::exception("Error: The expression was entered incorrectly\n");
 	if (numbers.size() == 1 && cur_operations.size() == 0) {
 		std::string str = std::to_string(numbers.top());
 		clear_stacks();
@@ -230,7 +230,7 @@ std::string Calculator::solve()
 	}
 }
 
-void Calculator::math() {
+bool Calculator::math() {
 	while (!cur_operations.empty()) {
 		if (cur_operations.top()->get_type() == "(") cur_operations.pop();
 		else {
@@ -241,6 +241,7 @@ void Calculator::math() {
 					}
 					catch (std::exception& err) {
 						std::cout << err.what();
+						return 0;
 						//exit(1);
 					}
 					cur_operations.pop();
@@ -249,6 +250,7 @@ void Calculator::math() {
 			}
 		}
 	}
+	return 1;
 }
 
 bool Calculator::match(int i, Operation* oper) 

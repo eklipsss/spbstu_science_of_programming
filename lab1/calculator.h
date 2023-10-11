@@ -28,7 +28,7 @@ public:
 	void load_dll();
 	void import_functions(HMODULE dll);
 	std::string solve();
-	void math();
+	bool math();
 	bool match(int i, Operation* oper);
 	bool is_number(char c);
 	void clear_stacks();
