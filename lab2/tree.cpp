@@ -80,6 +80,23 @@ void XMLtree::print_tree() const {
     std::cout << create_tree_str(root, 0);
 }
 
+Node::iterator XMLtree::begin() {
+    if (root)
+        return root->begin();
+    else {
+        Node::iterator iter = Node::iterator(nullptr, nullptr);
+        return iter;
+    }
+}
+Node::iterator XMLtree::end() {
+    if (root)
+        return root->end();
+    else {
+        Node::iterator iter = Node::iterator(nullptr, nullptr);
+        return iter;
+    }
+}
+
 Node::iterator XMLtree::add(Node::iterator& iter, const std::string& name, const int& value) {
     return iter.add(name, value, iter.get_node());
 }

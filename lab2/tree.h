@@ -16,8 +16,8 @@ public:
 	void for_each(std::function<void(const Node&)> func);
 	void print_tree() const;
 
-	Node::iterator begin() { return root->begin(); }
-	Node::iterator end() { return root->end(); }
+	Node::iterator begin();
+	Node::iterator end();
 	Node::iterator add(Node::iterator& iter, const std::string& name, const int& value);
 	Node::iterator find(const int& value);
 	Node::iterator find(const std::string& name);

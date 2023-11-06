@@ -30,11 +30,12 @@ void Node::delete_from_children() {
 }
 
 int Node::child_number(Node* node) const{
-    for (int i = 0; i < children.size(); i++) {
-        if (children[i].get() == node && i != children.size())
-            return i;
-        else return -1;
+    if (node) {
+        for (int i = 0; i < children.size()-1; i++) 
+            if (children[i].get() == node)
+                return i;
     }
+    return -1;
 }
 
 Node::node_shptr Node::next_node(){

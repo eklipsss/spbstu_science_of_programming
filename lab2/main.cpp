@@ -1,8 +1,12 @@
+#include <conio.h>
 #include "resource.h"
 
 int main() {
-    std::string input_file = "xml_tree.txt";
-    std::string output_file = "output.txt";
+    std::string input_file = "..\\xml_tree.txt";
+    std::string output_file = "..\\output.txt";
+	
+	// files .txt should be located one folder higher than .exe
+
 	std::unique_ptr<XMLresource> xml_tree = XMLresource::create();
 
 	xml_tree->load(input_file);
@@ -60,6 +64,15 @@ int main() {
 		xml_tree->erase(node_by_name);
 	xml_tree->print();
 	std::cout << std::endl;
+
+	char c;
+	std::cout << "\nPress ENTER to exit " << std::endl;
+	c = _getch();
+	if (c == 13) {
+		std::cout << "\nexit!" << std::endl;
+		exit(0);
+	}
+	system("pause");
 
     return 0;
 }

@@ -21,4 +21,9 @@ public:
 	bool erase(Node::iterator& iter);
 
 	~XMLresource() = default;
+
+	XMLresource(const XMLresource&) = delete;
+	XMLresource(XMLresource&&) = delete;
+	XMLresource& operator = (const XMLresource&) = delete;
+	XMLresource& operator = (XMLresource&&) = delete;
 };
