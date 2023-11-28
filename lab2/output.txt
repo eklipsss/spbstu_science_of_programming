@@ -1,0 +1,10 @@
+<root> 1
+	<tag1> 2
+		<nested1> 3
+		</nested1>
+		<nested2> 4
+		</nested2>
+	</tag1>
+	<tag2> 5
+	</tag2>
+</root>
