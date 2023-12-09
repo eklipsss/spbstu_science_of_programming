@@ -22,9 +22,9 @@ private:
 public:
     template<typename ClassType, typename... Args>
     Wrapper(ClassType* object, int (ClassType::* func)(Args...), std::unordered_map<std::string, int> const& args) : args(args) {
-        //if (sizeof...(Args) != args.size()) //???????????????????
-            //throw std::runtime_error("ERROR: the number of arguments does not match the function arguments");
-        set_command(object, func, std::make_index_sequence<sizeof...(Args)>{});
+        if (sizeof...(Args) != args.size())
+            std::cout << " (!) ERROR: Incorrect wrapper - the number of arguments does not match the function arguments" << std::endl;
+        else set_command(object, func, std::make_index_sequence<sizeof...(Args)>{});
     }
 
     int execute(std::unordered_map<std::string, int> const& input_args) {
@@ -36,7 +36,10 @@ public:
                 throw std::runtime_error(" (!) ERROR: input argument [" + arg.first + "] not found");
             vec_args.push_back(input_args.find(arg.first)->second);
         }
-        return command(vec_args);
+        if (command) {
+            return command(vec_args);
+        }
+        else return 0;
     }  
 
 };

@@ -19,9 +19,11 @@ public:
 int main() {
 	Subject subj;
 	Engine engine;
-	std::cout << "f1(a,b) = a - b " << std::endl;
-	std::cout << "f1_new(a,b) = a * b " << std::endl;
-	std::cout << "f2(a,b,c) = a + b + c " << std::endl << std::endl;
+	std::cout << std::endl << "FUNCTIONS: " << std::endl;
+	std::cout << " f1(a,b) = a - b " << std::endl;
+	std::cout << " f1_new(a,b) = a * b " << std::endl;
+	std::cout << " f2(a,b,c) = a + b + c " << std::endl << std::endl;
+	std::cout << "NOTICE: \n after an error message the output 0 as the result of the function is not a correct result of calculations, \n it indicates an incorrect function call" << std::endl << std::endl;
 
 	std::cout << "------------------------"  << std::endl;
 	std::cout << "Correct wrapper: " << std::endl;
@@ -66,16 +68,18 @@ int main() {
 
 	engine.register_command(&wrapper2, "command2");
 
-	std::cout << "f2: " << engine.execute("command2", { {"arg1", 4}, {"arg2", 5}, {"arg3", 6}, {"arg4", 7} }) << std::endl;
+	std::cout << "  f2(4,5,6,7): " << engine.execute("command2", { {"arg1", 4}, {"arg2", 5}, {"arg3", 6}, {"arg4", 7} }) << std::endl;
 
-	//std::cout << "------------------------" << std::endl;
-	//std::cout << "Incorrect wrapper [2]: " << std::endl;
-	//std::cout << "------------------------" << std::endl;
-	//Wrapper wrapper3(&subj, &Subject::f2, { {"arg1", 0}, {"arg2", 0} });
+	std::cout << std::endl;
 
-	//engine.register_command(&wrapper3, "command3");
+	std::cout << "------------------------" << std::endl;
+	std::cout << "Incorrect wrapper [2]: " << std::endl;
+	std::cout << "------------------------" << std::endl;
+	Wrapper wrapper3(&subj, &Subject::f2, { {"arg1", 0}, {"arg2", 0} });
 
-	//std::cout << "f3: " << engine.execute("command3", { {"arg1", 4}, {"arg2", 5} }) << std::endl;
+	engine.register_command(&wrapper3, "command3");
+
+	std::cout << "  f2(4,5): " << engine.execute("command3", { {"arg1", 4}, {"arg2", 5} }) << std::endl;
 
 	char c;
 	std::cout << "\nPress ENTER to exit " << std::endl;
